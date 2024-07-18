@@ -35,12 +35,14 @@ DECLARE_TR_CTX(smart_amp_test_comp_tr, SOF_UUID(smart_amp_test_uuid),
 #include <audio/source_api.h>
 #include <audio/sink_api.h>
 #include <ipc4/module.h>
-#include <sof/math/numbers.h>
+///#include <sof/math/numbers.h>
 #endif
 #include <sof/compiler_attributes.h>
-#include <sof/samples/audio/smart_amp_test.h>
+#include "smart_amp_test.h"
 #include <module/module/api_ver.h>
 #include <rimage/sof/user/manifest.h>
+
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 typedef void (*smart_amp_proc)(int8_t const *src_ptr,
 			       int8_t const *src_begin,
