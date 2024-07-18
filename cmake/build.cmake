@@ -11,8 +11,8 @@ include(${CMAKE_CURRENT_LIST_DIR}/config.cmake)
 
 # Build common module functions from sof to a static library
 add_library(sof STATIC)
-target_include_directories(sof PRIVATE "${SOF_BASE}/src/include")
-add_subdirectory("${SOF_BASE}/src/module" module_api)
+target_include_directories(sof PRIVATE "${LMDK_BASE}/src/include")
+add_subdirectory("${LMDK_BASE}/src/module" module_api)
 
 foreach(MODULE ${MODULES_LIST})
 	add_executable(${MODULE})
@@ -22,9 +22,8 @@ foreach(MODULE ${MODULES_LIST})
 	#target_compile_options(${MODULE} PUBLIC  "-g3")
 
 	target_include_directories(${MODULE} PRIVATE
-		"${LMDK_BASE}/include"
-		"${RIMAGE_INCLUDE_DIR}"
-		"${SOF_BASE}/src/include/module"
+		"${LMDK_BASE}/src/include/module"
+		"${LMDK_BASE}/src/include"
 	)
 
 	# generate linker script
@@ -61,8 +60,9 @@ if(RIMAGE_INSTALL_DIR)
 endif()
 
 # Create a hint - rimage may be installed to directory where SOF project installs it
-cmake_path(APPEND SOF_BASE "../build-rimage" OUTPUT_VARIABLE RIMAGE_SOF_INSTALL_DIR)
-cmake_path(NORMAL_PATH RIMAGE_SOF_INSTALL_DIR)
+###cmake_path(APPEND SOF_BASE "../build-rimage" OUTPUT_VARIABLE RIMAGE_SOF_INSTALL_DIR)
+###cmake_path(NORMAL_PATH RIMAGE_SOF_INSTALL_DIR)
+
 cmake_path(ABSOLUTE_PATH SIGNING_KEY BASE_DIRECTORY ${CMAKE_SOURCE_DIR} NORMALIZE)
 
 foreach(MOD_NAME IN LISTS MODULES_LIST)
@@ -80,7 +80,7 @@ endforeach()
 
 find_program(RIMAGE_COMMAND NAMES rimage
   PATHS "${RIMAGE_INSTALL_DIR}"
-  HINTS "${RIMAGE_SOF_INSTALL_DIR}"
+###  HINTS "${RIMAGE_SOF_INSTALL_DIR}"
   REQUIRED)
 
 add_custom_target(${PROJECT_NAME}_target ALL

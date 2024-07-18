@@ -10,13 +10,6 @@ endif()
 set(LMDK_BASE ${CMAKE_CURRENT_LIST_DIR}/..)
 cmake_path(ABSOLUTE_PATH LMDK_BASE NORMALIZE)
 
-# thesofproject root dir
-set(SOF_BASE ${LMDK_BASE}/..)
-cmake_path(ABSOLUTE_PATH SOF_BASE NORMALIZE)
-
-set(RIMAGE_INCLUDE_DIR ${SOF_BASE}/tools/rimage/src/include)
-cmake_path(ABSOLUTE_PATH RIMAGE_INCLUDE_DIR NORMALIZE)
-
 # Adds sources to target like target_sources, but assumes that
 # paths are relative to subdirectory.
 # Works like:
