@@ -114,10 +114,16 @@ include(../../cmake/build.cmake)
 
 ## Building of loadable library
 
-The designers of LMDK have prepared a Python script to build the loadable library. To build an example loadable library, execute the following:
+To build dummy loadable library execute:
 
 ```bash
-$ python scripts/lmdk/libraries_build.py -l example_lib -k "/path/to/signing/key.pem"
+cd libraries/dummy
+cmake -B build -G <Ninja/Makefile> -DRIMAGE_INSTALL_DIR="path/where/rimage/executable/is" -DSIGNING_KEY="path/to/key"
+cd --build build
 ```
 
-The `-l` parameter designates the name of the library to be built. The `-k` parameter specifies the path to a file containing a private key, which will be utilized to sign the resulting image.
+Here RIMAGE_INSTALL_DIR is a path to directory where rimage executable is, SIGNING_KEY is a path to signing key for rimage. Dummy module sets up toolchain file in the project file. However, in your library you can select toolchain file in the configure step command:
+
+```bash
+cmake -B build -G <Ninja/Makefile> --toolchain "../../cmake/xtensa-toolchain.cmake" -DSIGNING_KEY="path/to/key"
+```
